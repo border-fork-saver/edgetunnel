@@ -52,7 +52,7 @@ export default {
 	async fetch(request, env, ctx) {
 		try {
 			const UA = request.headers.get('User-Agent') || 'null';
-			console.log(UA)
+			console.log({UA})
 			const userAgent = UA.toLowerCase();
 			userID = (env.UUID || userID).toLowerCase();
 
@@ -1700,17 +1700,17 @@ function subAddresses(host,UUID,noTLS,newAddressesapi,newAddressescsv,newAddress
 }
 
 async function sendMessage(type, ip, add_data = "") {
+	let msg = "";
+	const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
+	if (response.status == 200) {
+		const ipInfo = await response.json();
+		msg = `${type}\nIP: ${ip}\n国家: ${ipInfo.country}\n<tg-spoiler>城市: ${ipInfo.city}\n组织: ${ipInfo.org}\nASN: ${ipInfo.as}\n${add_data}`;
+	} else {
+		msg = `${type}\nIP: ${ip}\n<tg-spoiler>${add_data}`;
+	}
+
+	console.log({botMSg: msg})
 	if ( BotToken !== '' && ChatID !== ''){
-		let msg = "";
-		const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
-		if (response.status == 200) {
-			const ipInfo = await response.json();
-			msg = `${type}\nIP: ${ip}\n国家: ${ipInfo.country}\n<tg-spoiler>城市: ${ipInfo.city}\n组织: ${ipInfo.org}\nASN: ${ipInfo.as}\n${add_data}`;
-		} else {
-			msg = `${type}\nIP: ${ip}\n<tg-spoiler>${add_data}`;
-		}
-	
-		console.log(msg)
 		let url = "https://api.telegram.org/bot"+ BotToken +"/sendMessage?chat_id=" + ChatID + "&parse_mode=HTML&text=" + encodeURIComponent(msg);
 		return fetch(url, {
 			method: 'get',
