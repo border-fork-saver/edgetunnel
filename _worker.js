@@ -1363,7 +1363,7 @@ https://github.com/cmliu/edgetunnel
 			if ((!sub || sub == "") && isBase64 == true) {
 				content = await subAddresses(fakeHostName,fakeUserID,noTLS,newAddressesapi,newAddressescsv,newAddressesnotlsapi,newAddressesnotlscsv);
 			} else {
-				console.log({url})
+				console.log({url: JSON.stringify(url)})
 
 				const response = await fetch(url ,{
 					headers: {
