@@ -1356,6 +1356,7 @@ https://github.com/cmliu/edgetunnel
 				url = `${subProtocol}://${subconverter}/sub?target=singbox&url=${encodeURIComponent(url)}&insert=false&config=${encodeURIComponent(subconfig)}&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 				isBase64 = false;
 			}
+			console.log({url})
 		}
 		
 		try {
