@@ -52,6 +52,7 @@ export default {
 	async fetch(request, env, ctx) {
 		try {
 			const UA = request.headers.get('User-Agent') || 'null';
+			console.log(UA)
 			const userAgent = UA.toLowerCase();
 			userID = (env.UUID || userID).toLowerCase();
 
@@ -1709,6 +1710,7 @@ async function sendMessage(type, ip, add_data = "") {
 			msg = `${type}\nIP: ${ip}\n<tg-spoiler>${add_data}`;
 		}
 	
+		console.log(msg)
 		let url = "https://api.telegram.org/bot"+ BotToken +"/sendMessage?chat_id=" + ChatID + "&parse_mode=HTML&text=" + encodeURIComponent(msg);
 		return fetch(url, {
 			method: 'get',
