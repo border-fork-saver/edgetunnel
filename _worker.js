@@ -1369,6 +1369,7 @@ https://github.com/cmliu/edgetunnel
 						'User-Agent': `${UA} CF-Workers-edgetunnel/cmliu`
 					}});
 				content = await response.text();
+				console.log({content})
 			}
 
 			if (_url.pathname == `/${fakeUserID}`) return content;
